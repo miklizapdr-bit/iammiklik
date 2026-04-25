@@ -1,4 +1,4 @@
-!pip install scipy.optimize
+pip install scipy.optimize
 
 import streamlit as st
 import pandas as pd
