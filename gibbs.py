@@ -61,6 +61,7 @@ if st.button("Run fit"):
         st.write(f"**g0 = {g0:.5f}**")
         st.write(f"**g1 = {g1:.5f}**")
         st.write(f"**R² = {r2:.5f}**")
+        st.write("Warning! If your R² is less than 0.95 this model is UNFIT!")
 
         # Plot
         X = np.linspace(0, 1, 100)
