@@ -72,7 +72,7 @@ if st.button("Run fit"):
 
         # Sign formatting (cleaner)
         sign = "+" if g1 >= 0 else "-"
-        ax.text(0.5, 0, f"$G^{{ex}} = {g0:.3f} {sign} {abs(g1):.3f}x$", ha='center')
+        ax.text(0.5, 0, f"$G^{{ex}} = (1-x)x({g0:.3f} {sign} {abs(g1):.3f}x)$", ha='center')
 
         ax.grid('--', alpha=0.5)
         ax.set_xlabel('Solute mole fraction, $\\chi$')
