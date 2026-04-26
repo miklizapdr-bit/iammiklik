@@ -5,8 +5,8 @@ from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 
 # ------------------ MODEL ------------------
-def model(x, g0, g1):
-    return x * (1 - x) * (g0 + g1 * x)
+def model(x, g0, g1, T):
+    return x * R*T*(1 - x) * (g0 + g1 * x)
 
 def read_float_list(text):
     try:
@@ -51,11 +51,11 @@ if st.button("Run fit"):
         df['Gex'] = R*T*((1-df['x'])*np.log(df['g1']) + df['x']*np.log(df['g2']))
 
         # Fit
-        params, _ = curve_fit(model, df['x'], df['Gex'])
+        params, _ = curve_fit(model, df['x'], df['Gex']/(R*T))
         g0, g1 = params
 
         # R^2
-        y_pred = model(df['x'], g0, g1)
+        y_pred = model(df['x'], g0, g1,T)
         r2 = 1 - np.sum((df['Gex'] - y_pred)**2) / np.sum((df['Gex'] - np.mean(df['Gex']))**2)
 
         st.write(f"**g0 = {g0:.5f}**")
@@ -68,7 +68,7 @@ if st.button("Run fit"):
 
         fig, ax = plt.subplots()
         ax.plot(df['x'], df['Gex'], 'o', label='data')
-        ax.plot(X, model(X, g0, g1), '--', label='fit')
+        ax.plot(X, model(X, g0, g1,T), '--', label='fit')
 
         # Sign formatting (cleaner)
         sign = "+" if g1 >= 0 else "-"
